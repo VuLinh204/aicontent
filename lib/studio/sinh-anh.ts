@@ -5,8 +5,6 @@
  * rồi lưu asset vào DB.
  */
 
-import { createRepo } from '@/lib/data-access';
-import { chayNhiemVu } from '@/lib/model-runner';
 import type { ThamSoSinhAnh, KetQuaSinhAnh, KetQuaStudio } from './kieu';
 
 /**
@@ -45,6 +43,8 @@ export async function sinhAnh(
     return { ok: false, loi: 'Thiếu workspaceId hoặc contentId' };
   }
 
+  const { createRepo } = await import('@/lib/data-access');
+  const { chayNhiemVu } = await import('@/lib/model-runner');
   const repo = createRepo(workspaceId);
 
   // --- 1. Đọc bài đăng ---
@@ -105,28 +105,24 @@ export async function sinhAnh(
     };
   }
 
-  // --- 5. Lưu asset vào DB ---
-  let assetId = '';
+  // --- 5. Trả về kết quả ---
+  // Mốc 5 chỉ sinh prompt text, chưa tạo ảnh thực tế.
+  // Asset record sẽ được tạo sau khi có ảnh thực (Mốc 6+).
+  // Lưu prompt ảnh vào ghi_chu của bài để client có thể xem lại.
   try {
-    const asset = await repo.asset.tao({
-      contentId,
-      loai: 'anh',
-      duongDan: null, // Đường dẫn sẽ được điền sau khi sinh ảnh thực
-      urlNgoai: null,
+    await repo.contents.sua(contentId, {
+      ghiChu: `[sinh-anh] ${ketQuaDon.promptAnh}`,
     });
-    assetId = asset.id;
   } catch (loi) {
-    return {
-      ok: false,
-      loi: `Lỗi lưu asset: ${loi instanceof Error ? loi.message : String(loi)}`,
-    };
+    // Lỗi ghi chú không phải lỗi nghiêm trọng — vẫn trả về thành công
+    console.warn(`Cảnh báo: không ghi được prompt vào ghi_chu:`, loi);
   }
 
   return {
     ok: true,
     data: {
       contentId,
-      assetId,
+      assetId: '', // Chưa có asset vì chưa có ảnh thực tế
       promptAnh: ketQuaDon.promptAnh,
     },
     canhBao: [],

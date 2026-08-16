@@ -20,7 +20,7 @@ const runnerApi = require('../lib/model-runner/runner-api');
 
 describe('chon mo hinh (PRD 8.3)', () => {
   it('bay nhiem vu cua PRD muc 8.2 deu co mac dinh va co loai viec tuong ung', () => {
-    assert.equal(NHIEM_VU_HOP_LE.length, 7);
+    assert.equal(NHIEM_VU_HOP_LE.length, 8);
     for (const nhiemVu of NHIEM_VU_HOP_LE) {
       assert.ok(MAC_DINH_THEO_NHIEM_VU[nhiemVu], `thieu mac dinh cho ${nhiemVu}`);
       assert.ok(loaiViecCuaNhiemVu(nhiemVu), `thieu loai viec cho ${nhiemVu}`);
