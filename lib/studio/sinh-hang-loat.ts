@@ -62,12 +62,18 @@ export async function sinhHangLoat(
   }
 
   // --- 2. Lay y tuong chu dung tu DB de co ID ---
-  const danhSachYTuongTuDB = await repo.yTuong.list(soLuongYTuong + 10);
-  const yTuongChuDung = danhSachYTuongTuDB
-    .filter((y: { daDung: boolean; beMat: string }) => !y.daDung && y.beMat === beMat)
-    .slice(0, soLuongYTuong);
+  // Fetch theo thu tu moi nhat trc, chi lay nhung y tuong vua sinh
+  // (co daDung=false va beMat dung)
+  const danhSachYTuongTuDB = await repo.yTuong.layTheoBeMat(beMat, soLuongYTuong);
+  const yTuongChuDung = danhSachYTuongTuDB.filter(
+    (y: { daDung: boolean }) => !y.daDung
+  );
 
-  if (yTuongChuDung.length === 0) {
+  // Neu so luong < yeu cau, chi lay nhung co san
+  const soLuongThucTe = Math.min(yTuongChuDung.length, soLuongYTuong);
+  const yTuongCanXu = yTuongChuDung.slice(0, soLuongThucTe);
+
+  if (yTuongCanXu.length === 0) {
     return {
       ok: false,
       loi: 'Khong co y tuong chu dung trong DB sau khi sinh.',
@@ -79,7 +85,7 @@ export async function sinhHangLoat(
   let soBaiThanhCong = 0;
   let soBaiThatBai = 0;
 
-  for (const yTuong of yTuongChuDung) {
+  for (const yTuong of yTuongCanXu) {
     try {
       const ketQuaBai = await bienSoanBai({
         workspaceId,
@@ -120,7 +126,7 @@ export async function sinhHangLoat(
   return {
     ok: true,
     data: {
-      soYTuongSinh: yTuongChuDung.length,
+      soYTuongSinh: yTuongCanXu.length,
       soBaiTaoThanhCong: soBaiThanhCong,
       soBaiThatBai: soBaiThatBai,
       danhSachBai,
