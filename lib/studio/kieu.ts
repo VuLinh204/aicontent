@@ -56,3 +56,33 @@ export type BaiDaSinh = {
   noiDung: string;
   hashtag: string[];
 };
+
+/**
+ * Một cảnh trong kịch bản quay video.
+ *
+ * Hợp đồng Mốc 3: từ loi-nhac-theo-nhiem-vu.js line 196.
+ */
+export type Canh = {
+  thoiLuongGiay: number;  // độ dài cảnh tính bằng giây
+  hinhAnh: string;        // hình dung cảnh quay hoặc prompt sinh ảnh
+  loiThoai: string;       // voice-over / script cho cảnh này
+};
+
+/**
+ * Kịch bản quay video — cấu trúc phân cảnh, không phải đoạn văn xuôi.
+ *
+ * Hợp đồng Mốc 3: truongBatBuoc = ['tieuDe', 'phanCanh'] trong loi-nhac-theo-nhiem-vu.js.
+ */
+export type KichBan = {
+  tieuDe: string;
+  phanCanh: Canh[];
+};
+
+/**
+ * Tham số đầu vào để sinh kịch bản quay video từ ý tưởng.
+ */
+export type ThamSoSinhKichBan = {
+  workspaceId: string;
+  ideaId: string;
+  beMat: BeMat;
+};
