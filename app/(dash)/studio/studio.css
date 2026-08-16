@@ -1111,6 +1111,25 @@
   cursor: not-allowed;
 }
 
+.editor-hang-loat .btn--secondary {
+  background: var(--line);
+  color: var(--text-secondary);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.editor-hang-loat .btn--secondary:hover {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--brand-500);
+}
+
+.editor-hang-loat .btn--secondary:active {
+  filter: brightness(0.9);
+}
+
 .hang-loat-ket-qua {
   display: flex;
   flex-direction: column;

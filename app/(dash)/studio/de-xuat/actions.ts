@@ -65,14 +65,4 @@ export async function hanhDongSinhYTuong(form: FormData): Promise<KetQuaHanhDong
   };
 }
 
-/**
- * Lưu một ý tưởng cụ thể (người dùng bấm "Lưu" trên card).
- *
- * Hiện tại ý tưởng được lưu tự động trong deXuatYTuong() khi sinh.
- * Action này giữ chỗ cho tính năng lưu/bỏ lưu riêng lẻ ở mốc sau.
- */
-export async function hanhDongLuuYTuong(_ideaId: string): Promise<KetQuaHanhDong> {
-  // Placeholder — ý tưởng đã lưu tự động khi sinh.
-  // Mốc 2 sẽ dùng action này để chuyển idea sang content.
-  return { ok: true, soLuong: 1, canhBao: [] };
-}
+

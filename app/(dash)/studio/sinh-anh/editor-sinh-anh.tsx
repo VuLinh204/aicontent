@@ -73,10 +73,25 @@ export function SinhAnhEditor({
       {state.ok && state.data ? (
         <div className="hang-loat-ket-qua">
           <div className="thong-ke">
-            <strong>Prompt ảnh:</strong> {state.data.promptAnh}
+            <strong>✅ Prompt ảnh đã sinh:</strong>
           </div>
-          <div className="thong-ke">
-            <strong>Asset ID:</strong> {state.data.assetId}
+          <div className="thong-ke" style={{ padding: '12px', backgroundColor: '#2a2a2a', borderRadius: '6px', marginTop: '8px' }}>
+            <p style={{ margin: 0, lineHeight: 1.6, fontSize: '14px', color: '#e0e0e0' }}>
+              {state.data.promptAnh}
+            </p>
+          </div>
+          <div style={{ marginTop: '12px' }}>
+            <button
+              type="button"
+              className="btn btn--secondary"
+              onClick={() => {
+                navigator.clipboard.writeText(state.data!.promptAnh);
+                alert('Đã sao chép prompt vào clipboard');
+              }}
+              style={{ fontSize: '13px', padding: '6px 12px' }}
+            >
+              📋 Sao chép prompt
+            </button>
           </div>
         </div>
       ) : null}

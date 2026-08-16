@@ -61,23 +61,6 @@ function chuyenLoiMoHinh(loi: string | null | undefined): string {
   return loi;
 }
 
-/** Chuyển lỗi kỹ thuật từ worker thành câu người dùng hiểu được. */
-function chuyenLoiJob(loi: string | null | undefined): string {
-  if (!loi) return 'Mô hình không trả về kết quả.';
-  const thuong = loi.toLowerCase();
-  if (thuong.includes('429') || thuong.includes('quota') || thuong.includes('rate limit')) {
-    return [
-      'Đã hết hạn mức gọi Gemini (quota).',
-      'Chờ vài phút rồi thử lại, hoặc đặt AI_MODEL=gemini-3.1-flash-lite trong .env,',
-      'hoặc dùng OPENAI_API_KEY nếu có.',
-    ].join(' ');
-  }
-  if (thuong.includes('404') && thuong.includes('gemini')) {
-    return 'Model Gemini trong cấu hình không còn khả dụng. Thử đặt AI_MODEL=gemini-3.1-flash-lite trong .env.';
-  }
-  return loi;
-}
-
 // ----------------------------------------------------------------
 // Kiểu nội bộ mô tả kết quả thô từ mô hình
 // ----------------------------------------------------------------
