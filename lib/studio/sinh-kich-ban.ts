@@ -10,12 +10,13 @@ import { createRepo } from '@/lib/data-access';
 import { chayNhiemVu } from '@/lib/model-runner/index';
 import type { KichBan, ThamSoSinhKichBan, KetQuaStudio } from './kieu';
 import { KHOANG_TU_BE_MAT } from '@/lib/model-runner/loi-nhac-theo-nhiem-vu';
+import { kiemTraDauYeuCau } from './kiem-tra-dau';
 
 const SO_XU_HUONG_TOI_DA = 3;
 
 /**
  * Don ket qua tho cua mo hinh ve dung hinh dang KichBan.
- * Tra null neu thieu truong bat buoc hoac phanCanh khong phai mang.
+ * Tra null neu thieu truong bat buoc, phanCanh khong phai mang, hoac khong co dau.
  */
 export function donKetQuaKichBan(tho: unknown): KichBan | null {
   if (!tho || typeof tho !== 'object') return null;
@@ -23,6 +24,10 @@ export function donKetQuaKichBan(tho: unknown): KichBan | null {
 
   const tieuDe = typeof obj.tieuDe === 'string' ? obj.tieuDe.trim() : '';
   if (!tieuDe) return null;
+
+  // Kiểm tra dấu tiếng Việt
+  const loiDau = kiemTraDauYeuCau(tieuDe);
+  if (loiDau) return null;
 
   if (!Array.isArray(obj.phanCanh)) return null;
 
@@ -36,6 +41,9 @@ export function donKetQuaKichBan(tho: unknown): KichBan | null {
       const loiThoai = typeof c.loiThoai === 'string' ? c.loiThoai.trim() : '';
 
       if (thoiLuongGiay === null || !hinhAnh || !loiThoai) return null;
+
+      // Kiểm tra dấu trong hình ảnh và lời thoại
+      if (kiemTraDauYeuCau(hinhAnh) || kiemTraDauYeuCau(loiThoai)) return null;
 
       return { thoiLuongGiay, hinhAnh, loiThoai };
     })

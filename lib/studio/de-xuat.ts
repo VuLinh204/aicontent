@@ -14,6 +14,7 @@ import { createRepo } from '@/lib/data-access';
 import { chayNhiemVu } from '@/lib/model-runner';
 
 import type { BeMat, KetQuaStudio, YTuongDeXuat } from './kieu';
+import { kiemTraDauYeuCau } from './kiem-tra-dau';
 
 // ----------------------------------------------------------------
 // Hằng số & kiểu xuất
@@ -152,6 +153,9 @@ export function donKetQuaDeXuat(
     const tieuDe = typeof m.tieuDe === 'string' ? m.tieuDe.trim() : '';
     // Bỏ qua ý tưởng không có tiêu đề — không có tiêu đề là không dùng được
     if (!tieuDe) continue;
+
+    // Kiểm tra dấu tiếng Việt
+    if (kiemTraDauYeuCau(tieuDe)) continue;
 
     // Kiểm tra trụ cột: chỉ chấp nhận TÊN CÓ THẬT, không chấp nhận tên bịa
     const truCotTho = typeof m.truCot === 'string' ? m.truCot.trim() : '';

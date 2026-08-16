@@ -26,23 +26,34 @@ describe('donKetQuaBienSoan', () => {
   });
 
   it('tra ve null neu thieu tieuDe hoac noiDung', () => {
-    assert.equal(donKetQuaBienSoan({ tieuDe: 'Co tieu de', noiDung: '' }), null);
-    assert.equal(donKetQuaBienSoan({ tieuDe: '   ', noiDung: 'Co noi dung' }), null);
-    assert.equal(donKetQuaBienSoan({ tieuDe: null, noiDung: 'Noi dung' }), null);
-    assert.equal(donKetQuaBienSoan({ tieuDe: 'Tieu de', noiDung: null }), null);
+    assert.equal(donKetQuaBienSoan({ tieuDe: 'Có tiêu đề', noiDung: '' }), null);
+    assert.equal(donKetQuaBienSoan({ tieuDe: '   ', noiDung: 'Có nội dung' }), null);
+    assert.equal(donKetQuaBienSoan({ tieuDe: null, noiDung: 'Nội dung' }), null);
+    assert.equal(donKetQuaBienSoan({ tieuDe: 'Tiêu đề', noiDung: null }), null);
+  });
+
+  it('tra ve null neu output khong co dau tieng Viet', () => {
+    // Test case này kiểm tra validation dấu
+    assert.equal(
+      donKetQuaBienSoan({
+        tieuDe: 'Tieu de khong co dau',
+        noiDung: 'Noi dung khong co dau',
+      }),
+      null,
+    );
   });
 
   it('don va tra ve dung BaiDaSinh khi co du tieuDe va noiDung', () => {
     const tho = {
-      tieuDe: '  5 Meo chon nguyen lieu tuoi ngon  ',
-      noiDung: 'Day la noi dung bai viet chi tiet ve cach chon thit va rau tuoi moi ngay...',
+      tieuDe: '  5 Mẹo chọn nguyên liệu tươi ngon  ',
+      noiDung: 'Đây là nội dung bài viết chi tiết về cách chọn thịt và rau tươi mỗi ngày...',
       hashtag: ['kinhdoanh', 'meohay', 'thucpham', 'nauan', 'meonhabep', 'thua6'],
     };
 
     const ketQua = donKetQuaBienSoan(tho);
     assert.ok(ketQua);
-    assert.equal(ketQua.tieuDe, '5 Meo chon nguyen lieu tuoi ngon');
-    assert.equal(ketQua.noiDung, 'Day la noi dung bai viet chi tiet ve cach chon thit va rau tuoi moi ngay...');
+    assert.equal(ketQua.tieuDe, '5 Mẹo chọn nguyên liệu tươi ngon');
+    assert.equal(ketQua.noiDung, 'Đây là nội dung bài viết chi tiết về cách chọn thịt và rau tươi mỗi ngày...');
     // Chi lay toi da 5 hashtag
     assert.equal(ketQua.hashtag.length, 5);
     assert.deepEqual(ketQua.hashtag, ['kinhdoanh', 'meohay', 'thucpham', 'nauan', 'meonhabep']);
@@ -50,8 +61,8 @@ describe('donKetQuaBienSoan', () => {
 
   it('xu ly hashtag khong phai mang hoac co phan tu khong phai chuoi', () => {
     const tho = {
-      tieuDe: 'Tieu de hop le',
-      noiDung: 'Noi dung hop le',
+      tieuDe: 'Tiêu đề hợp lệ',
+      noiDung: 'Nội dung hợp lệ',
       hashtag: 'khong phai mang',
     };
     const ketQua = donKetQuaBienSoan(tho);
@@ -59,8 +70,8 @@ describe('donKetQuaBienSoan', () => {
     assert.deepEqual(ketQua.hashtag, []);
 
     const thoPhanTuSai = {
-      tieuDe: 'Tieu de hop le',
-      noiDung: 'Noi dung hop le',
+      tieuDe: 'Tiêu đề hợp lệ',
+      noiDung: 'Nội dung hợp lệ',
       hashtag: ['tag1', null, 123, 'tag2', undefined],
     };
     const ketQua2 = donKetQuaBienSoan(thoPhanTuSai);

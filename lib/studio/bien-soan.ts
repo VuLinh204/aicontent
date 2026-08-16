@@ -10,12 +10,13 @@ import { createRepo } from '@/lib/data-access';
 import { chayNhiemVu } from '@/lib/model-runner/index';
 import type { BaiDaSinh, KetQuaStudio, ThamSoBienSoan } from './kieu';
 import { KHOANG_TU_BE_MAT } from '@/lib/model-runner/loi-nhac-theo-nhiem-vu';
+import { kiemTraDauYeuCau } from './kiem-tra-dau';
 
 const SO_XU_HUONG_TOI_DA = 3;
 
 /**
  * Don ket qua tho cua mo hinh ve dung hinh dang BaiDaSinh.
- * Tra null neu thieu truong bat buoc.
+ * Tra null neu thieu truong bat buoc hoac khong co dau tien Viet.
  */
 export function donKetQuaBienSoan(tho: unknown): BaiDaSinh | null {
   if (!tho || typeof tho !== 'object') return null;
@@ -25,6 +26,13 @@ export function donKetQuaBienSoan(tho: unknown): BaiDaSinh | null {
   const noiDung = typeof obj.noiDung === 'string' ? obj.noiDung.trim() : '';
 
   if (!tieuDe || !noiDung) return null;
+
+  // Kiểm tra dấu tiếng Việt
+  const loiDauTieuDe = kiemTraDauYeuCau(tieuDe);
+  if (loiDauTieuDe) return null;
+
+  const loiDauNoiDung = kiemTraDauYeuCau(noiDung);
+  if (loiDauNoiDung) return null;
 
   const hashtag: string[] = Array.isArray(obj.hashtag)
     ? obj.hashtag.filter((h): h is string => typeof h === 'string').slice(0, 5)

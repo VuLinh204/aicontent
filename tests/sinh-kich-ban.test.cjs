@@ -30,21 +30,21 @@ describe('donKetQuaKichBan', () => {
     assert.equal(
       donKetQuaKichBan({
         tieuDe: '',
-        phanCanh: [{ thoiLuongGiay: 5, hinhAnh: 'Anh 1', loiThoai: 'Loi 1' }],
+        phanCanh: [{ thoiLuongGiay: 5, hinhAnh: 'Ảnh 1', loiThoai: 'Lời 1' }],
       }),
       null,
     );
     assert.equal(
       donKetQuaKichBan({
         tieuDe: '   ',
-        phanCanh: [{ thoiLuongGiay: 5, hinhAnh: 'Anh 1', loiThoai: 'Loi 1' }],
+        phanCanh: [{ thoiLuongGiay: 5, hinhAnh: 'Ảnh 1', loiThoai: 'Lời 1' }],
       }),
       null,
     );
     assert.equal(
       donKetQuaKichBan({
         tieuDe: null,
-        phanCanh: [{ thoiLuongGiay: 5, hinhAnh: 'Anh 1', loiThoai: 'Loi 1' }],
+        phanCanh: [{ thoiLuongGiay: 5, hinhAnh: 'Ảnh 1', loiThoai: 'Lời 1' }],
       }),
       null,
     );
@@ -53,14 +53,14 @@ describe('donKetQuaKichBan', () => {
   it('tra ve null neu phanCanh khong phai mang', () => {
     assert.equal(
       donKetQuaKichBan({
-        tieuDe: 'Kich ban hop le',
+        tieuDe: 'Kịch bản hợp lệ',
         phanCanh: 'khong phai mang',
       }),
       null,
     );
     assert.equal(
       donKetQuaKichBan({
-        tieuDe: 'Kich ban hop le',
+        tieuDe: 'Kịch bản hợp lệ',
         phanCanh: null,
       }),
       null,
@@ -69,11 +69,11 @@ describe('donKetQuaKichBan', () => {
 
   it('tra ve null neu phanCanh trong rong sau khi loc canh khong hop le', () => {
     const kichBan = donKetQuaKichBan({
-      tieuDe: 'Kich ban',
+      tieuDe: 'Kịch bản',
       phanCanh: [
-        { thoiLuongGiay: null, hinhAnh: 'Anh', loiThoai: 'Loi' }, // thieu thoiLuongGiay
-        { thoiLuongGiay: 5, hinhAnh: '', loiThoai: 'Loi' }, // hinhAnh trong
-        { thoiLuongGiay: 5, hinhAnh: 'Anh', loiThoai: '' }, // loiThoai trong
+        { thoiLuongGiay: null, hinhAnh: 'Ảnh', loiThoai: 'Lời' }, // thieu thoiLuongGiay
+        { thoiLuongGiay: 5, hinhAnh: '', loiThoai: 'Lời' }, // hinhAnh trong
+        { thoiLuongGiay: 5, hinhAnh: 'Ảnh', loiThoai: '' }, // loiThoai trong
       ],
     });
     assert.equal(kichBan, null);
@@ -81,9 +81,9 @@ describe('donKetQuaKichBan', () => {
 
   it('don va tra ve dung KichBan khi co du tieuDe va phanCanh hop le', () => {
     const tho = {
-      tieuDe: '  Kich ban quay hang ngay  ',
+      tieuDe: '  Kịch bản quay hàng ngày  ',
       phanCanh: [
-        { thoiLuongGiay: 5, hinhAnh: 'Shopkeeper dang chuẩn bị hàng', loiThoai: 'Mỗi sáng, tôi bắt đầu...' },
+        { thoiLuongGiay: 5, hinhAnh: 'Shopkeeper đang chuẩn bị hàng', loiThoai: 'Mỗi sáng, tôi bắt đầu...' },
         { thoiLuongGiay: 8, hinhAnh: 'Khách vào shop', loiThoai: 'Khách hàng đến...' },
         { thoiLuongGiay: 3, hinhAnh: 'Cảm ơn và tạm biệt', loiThoai: 'Cảm ơn đã ghé thăm!' },
       ],
@@ -91,11 +91,11 @@ describe('donKetQuaKichBan', () => {
 
     const ketQua = donKetQuaKichBan(tho);
     assert.ok(ketQua);
-    assert.equal(ketQua.tieuDe, 'Kich ban quay hang ngay');
+    assert.equal(ketQua.tieuDe, 'Kịch bản quay hàng ngày');
     assert.equal(ketQua.phanCanh.length, 3);
     assert.deepEqual(ketQua.phanCanh[0], {
       thoiLuongGiay: 5,
-      hinhAnh: 'Shopkeeper dang chuẩn bị hàng',
+      hinhAnh: 'Shopkeeper đang chuẩn bị hàng',
       loiThoai: 'Mỗi sáng, tôi bắt đầu...',
     });
   });
@@ -129,9 +129,9 @@ describe('donKetQuaKichBan', () => {
 
   it('trim whitespace o hinhAnh va loiThoai', () => {
     const tho = {
-      tieuDe: 'Kich ban',
+      tieuDe: 'Kịch bản',
       phanCanh: [
-        { thoiLuongGiay: 5, hinhAnh: '  Anh co khoang trang  ', loiThoai: '   Loi co khoang trang   ' },
+        { thoiLuongGiay: 5, hinhAnh: '  Ảnh có khoảng trắng  ', loiThoai: '   Lời có khoảng trắng   ' },
       ],
     };
 
@@ -139,8 +139,8 @@ describe('donKetQuaKichBan', () => {
     assert.ok(ketQua);
     assert.deepEqual(ketQua.phanCanh[0], {
       thoiLuongGiay: 5,
-      hinhAnh: 'Anh co khoang trang',
-      loiThoai: 'Loi co khoang trang',
+      hinhAnh: 'Ảnh có khoảng trắng',
+      loiThoai: 'Lời có khoảng trắng',
     });
   });
 });

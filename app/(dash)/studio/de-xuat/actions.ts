@@ -64,5 +64,3 @@ export async function hanhDongSinhYTuong(form: FormData): Promise<KetQuaHanhDong
     canhBao: ketQua.canhBao,
   };
 }
-
-

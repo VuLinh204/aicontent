@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Tho: Moc 4 - sinh hang loat bai dang
  *
@@ -11,8 +13,8 @@
  *   logic goi model. Thuc hanh API, cho setup truoc.
  */
 
-import assert from 'node:assert/strict';
-import { test, describe } from 'node:test';
+const assert = require('node:assert/strict');
+const { test, describe } = require('node:test');
 
 // Test co the se run sau khi co y tuong va noi dung trong DB
 // -> Tai day khong the viet test de xuat co y - phi logic

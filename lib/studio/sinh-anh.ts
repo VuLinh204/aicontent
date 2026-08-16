@@ -6,6 +6,7 @@
  */
 
 import type { ThamSoSinhAnh, KetQuaSinhAnh, KetQuaStudio } from './kieu';
+import { kiemTraDauYeuCau } from './kiem-tra-dau';
 
 /**
  * Validation output từ mô hình khi sinh prompt ảnh.
@@ -19,6 +20,9 @@ export function donKetQuaSinhAnh(tho: unknown): {
   const prompt = typeof obj.promptAnh === 'string' ? obj.promptAnh.trim() : '';
 
   if (!prompt || prompt.length < 10) return null;
+
+  // Kiểm tra dấu tiếng Việt
+  if (kiemTraDauYeuCau(prompt)) return null;
 
   return { promptAnh: prompt };
 }
