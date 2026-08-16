@@ -14,7 +14,12 @@ import type { BeMat } from '@/lib/studio/kieu';
 const BE_MAT_HOP_LE = new Set<string>(['fanpage', 'ho_so_ca_nhan', 'tiktok', 'zalo']);
 
 export type KetQuaSinhKichBan =
-  | { ok: true; tieuDe: string; soCanh: number; canhBao: string[] }
+  | {
+      ok: true;
+      tieuDe: string;
+      phanCanh: { thoiLuongGiay: number; hinhAnh: string; loiThoai: string }[];
+      canhBao: string[];
+    }
   | { ok: false; loi: string };
 
 /**
@@ -46,7 +51,7 @@ export async function hanhDongSinhKichBan(form: FormData): Promise<KetQuaSinhKic
   return {
     ok: true,
     tieuDe: ketQua.data.tieuDe,
-    soCanh: ketQua.data.phanCanh.length,
+    phanCanh: ketQua.data.phanCanh,
     canhBao: ketQua.canhBao,
   };
 }

@@ -6,7 +6,7 @@
  * Client component vì cần useActionState và tương tác.
  */
 
-import { useActionState, useState } from 'react';
+import React, { useActionState, useState } from 'react';
 import type { KetQuaSinhKichBan } from './actions';
 import { hanhDongSinhKichBan } from './actions';
 
@@ -54,9 +54,15 @@ export function EditorKichBan({
   const [kichBan, setKichBan] = useState<KichBanHienThi | null>(null);
   const [canhDangXem, setCanhDangXem] = useState<number>(0);
 
-  // Nếu sinh thành công, set kichBan (mock data từ response)
-  // Trong thực tế, sẽ fetch từ DB hoặc trích từ ketQuaSinh
-  const tongCanhSinh = ketQuaSinh?.ok ? ketQuaSinh.soCanh : 0;
+  // Khi sinh thành công, set kichBan từ ketQuaSinh
+  React.useEffect(() => {
+    if (ketQuaSinh?.ok) {
+      setKichBan({ tieuDe: ketQuaSinh.tieuDe, phanCanh: ketQuaSinh.phanCanh });
+      setCanhDangXem(0);
+    }
+  }, [ketQuaSinh]);
+
+  const tongCanhSinh = kichBan?.phanCanh.length ?? 0;
 
   const canhHienTai = kichBan?.phanCanh[canhDangXem];
 
