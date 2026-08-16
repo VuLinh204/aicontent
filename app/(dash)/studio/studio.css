@@ -155,3 +155,232 @@
   margin-left: 18px;
   border-left: 2px solid var(--sage);
 }
+
+/* ---------- Mốc 1: Đề xuất ý tưởng (/studio/de-xuat) ---------- */
+
+.form-sinh-y-tuong {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.form-sinh-y-tuong__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.form-sinh-y-tuong__be-mat {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.danh-sach-y-tuong {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .danh-sach-y-tuong {
+    grid-template-columns: 1fr;
+  }
+}
+
+.y-tuong-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: transform .15s var(--ease), box-shadow .15s var(--ease), border-color .15s var(--ease);
+}
+
+.y-tuong-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--brand-300);
+  box-shadow: var(--shadow-md);
+}
+
+.y-tuong-card__dau {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.y-tuong-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.y-tuong-card__than {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.y-tuong-card__tieu-de {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.y-tuong-card__hook {
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border-left: 3px solid var(--brand-400);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.y-tuong-card__nhan-phu {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--ink-3);
+}
+
+.y-tuong-card__noi-dung-hook {
+  margin: 0;
+  font-size: 13.5px;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.y-tuong-card__ly-do {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.y-tuong-card__noi-dung-ly-do {
+  margin: 2px 0 0;
+  color: var(--ink-2);
+}
+
+.y-tuong-card__chan {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft, var(--line));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: var(--r-pill);
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge--blue {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+}
+
+.badge--green {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.badge--purple {
+  background: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #e9d5ff;
+}
+
+.badge--cyan {
+  background: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #cffafe;
+}
+
+.badge--gray {
+  background: var(--surface-2);
+  color: var(--ink-2);
+  border: 1px solid var(--line);
+}
+
+.badge--outline {
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px dashed var(--line-strong);
+}
+
+/* Thông báo trạng thái */
+.thong-bao {
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  font-size: 13.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.thong-bao--thanh-cong {
+  background: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.thong-bao--loi {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.thong-bao__canh-bao {
+  margin: 0;
+  font-size: 12.5px;
+  color: #b45309;
+}
+
+/* Trạng thái trống */
+.trong-rong {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--ink-2);
+  background: var(--surface-2);
+  border-radius: var(--r-lg);
+  border: 1px dashed var(--line-strong);
+}
+
+.trong-rong__icon {
+  font-size: 32px;
+  margin: 0 0 10px;
+}
+
+.trong-rong__chu {
+  margin: 0;
+  font-size: 14px;
+}
+

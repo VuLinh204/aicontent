@@ -253,5 +253,35 @@ export function tinHieuXuHuongRepo(db: KetNoiDrizzle, workspaceId: string) {
         .set({ daDung: true })
         .where(and(eq(trendSignals.workspaceId, workspaceId), inArray(trendSignals.id, ids)));
     },
+
+    /**
+     * Lay cac tin hieu DA BOC cong thuc (congThuc co truong 'kieuHook').
+     *
+     * Dung de lib/studio/de-xuat.ts lay metadata xu huong truyen vao loi nhac.
+     * Chi tra ve metadata (khong tra `noiDung` van ban goc) — nen man studio
+     * khong bao gio lay duoc noi dung goc theo duong nay.
+     *
+     * Nguoc voi `chiemBaiChuaBoc()` chi lay bai CHUA boc, ham nay lay bai DA boc xong.
+     */
+    async layDaBoc(gioiHan: number) {
+      const dong = await db
+        .select({
+          id: trendSignals.id,
+          congThuc: trendSignals.congThuc,
+          dangBai: trendSignals.dangBai,
+          diemLienQuan: trendSignals.diemLienQuan,
+        })
+        .from(trendSignals)
+        .where(
+          and(
+            eq(trendSignals.workspaceId, workspaceId),
+            // Bai da boc xong co truong 'kieuHook' trong congThuc
+            sql`${trendSignals.congThuc} is not null AND ${trendSignals.congThuc} != '{}'::jsonb`,
+          ),
+        )
+        .orderBy(desc(trendSignals.diemLienQuan))
+        .limit(gioiHan);
+      return dong;
+    },
   };
 }
