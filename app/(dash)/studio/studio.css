@@ -402,6 +402,11 @@
   box-shadow: 0 4px 14px rgba(226, 121, 30, 0.4);
 }
 
+.btn--primary:active:not(:disabled) {
+  filter: brightness(0.92);
+  color: var(--btn-ink);
+}
+
 .btn--secondary {
   background: var(--surface-2);
   color: var(--ink);
