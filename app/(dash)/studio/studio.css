@@ -908,11 +908,45 @@
   flex-wrap: wrap;
 }
 
+.kich-ban-dieu-huong .btn {
+  min-width: 130px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--ink);
+}
+
+.kich-ban-dieu-huong .btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--ink);
+}
+
+.kich-ban-dieu-huong .btn:active:not(:disabled),
+.kich-ban-dieu-huong .btn:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--ink);
+}
+
+.kich-ban-dieu-huong .btn:disabled {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--ink-3);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
 .kich-ban-dieu-huong__vi-tri {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 84px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--surface);
+  border: 1px solid var(--line);
   font-size: 13px;
-  font-weight: 600;
-  color: var(--ink-2);
-  min-width: 60px;
+  font-weight: 700;
+  color: var(--ink);
   text-align: center;
 }
 
@@ -978,5 +1012,279 @@
   font-size: 15px;
   color: var(--clay);
   font-weight: 500;
+  margin: 0;
+}
+
+/* === Moc 4: Hang Loat === */
+
+.container-hang-loat {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.container-hang-loat h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.editor-hang-loat {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.editor-hang-loat form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.editor-hang-loat .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.editor-hang-loat label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.editor-hang-loat input,
+.editor-hang-loat select {
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: inherit;
+}
+
+.editor-hang-loat input:focus,
+.editor-hang-loat select:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  background: var(--surface);
+}
+
+.editor-hang-loat input:disabled,
+.editor-hang-loat select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.editor-hang-loat .btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--r-md);
+  transition: all 0.2s ease;
+}
+
+.editor-hang-loat .btn--primary {
+  background: var(--brand-500);
+  color: white;
+}
+
+.editor-hang-loat .btn--primary:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+
+.editor-hang-loat .btn--primary:active:not(:disabled) {
+  filter: brightness(0.92);
+}
+
+.editor-hang-loat .btn--primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hang-loat-ket-qua {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.hang-loat-ket-qua h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.thong-ke {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.thong-ke .so {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.thong-ke .nhan {
+  font-size: 13px;
+  color: var(--ink-2);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.thong-ke .gia-tri {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.thong-ke .gia-tri.thanh-cong {
+  color: #10b981;
+}
+
+.thong-ke .gia-tri.that-bai {
+  color: #ef4444;
+}
+
+.hang-loat-bang {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--surface-2);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.hang-loat-bang thead {
+  background: var(--surface-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.hang-loat-bang th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink);
+  border-right: 1px solid var(--line);
+}
+
+.hang-loat-bang th:last-child {
+  border-right: none;
+}
+
+.hang-loat-bang tbody tr {
+  border-bottom: 1px solid var(--line);
+}
+
+.hang-loat-bang tbody tr:last-child {
+  border-bottom: none;
+}
+
+.hang-loat-bang td {
+  padding: 12px;
+  color: var(--ink);
+  border-right: 1px solid var(--line);
+  word-break: break-all;
+}
+
+.hang-loat-bang td:last-child {
+  border-right: none;
+}
+
+.hang-loat-bang .id-tham-chieu {
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.hang-loat-bang .trang-thai {
+  font-weight: 600;
+}
+
+.hang-loat-bang tr.trang-thai-thanh-cong .trang-thai {
+  color: #10b981;
+}
+
+.hang-loat-bang tr.trang-thai-that-bai .trang-thai {
+  color: #ef4444;
+}
+
+.hang-loat-bang .loi {
+  color: var(--clay);
+  font-size: 12px;
+  max-width: 200px;
+}
+
+.canh-bao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--clay);
+  background-opacity: 0.1;
+  border: 1px solid var(--clay);
+  border-radius: var(--r-md);
+}
+
+.canh-bao h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.canh-bao ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.canh-bao li {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 4px 0;
+}
+
+.loi-hang-loat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  background: var(--clay);
+  background-opacity: 0.1;
+  border: 1px solid var(--clay);
+  border-radius: var(--r-xl);
+}
+
+.loi-hang-loat h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.loi-hang-loat p {
+  font-size: 14px;
+  color: var(--ink-2);
   margin: 0;
 }

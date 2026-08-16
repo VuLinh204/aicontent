@@ -86,3 +86,33 @@ export type ThamSoSinhKichBan = {
   ideaId: string;
   beMat: BeMat;
 };
+
+/**
+ * Tham số đầu vào để sinh nhiều bài đăng một lượt (Mốc 4).
+ */
+export type ThamSoSinhHangLoat = {
+  workspaceId: string;
+  beMat: BeMat;
+  soLuongYTuong: number; // số ý tưởng cần sinh
+};
+
+/**
+ * Kết quả từng bài trong hàng loạt.
+ */
+export type BaiTrongHangLoat = {
+  ideaId: string;
+  contentId: string;
+  tieuDe: string;
+  trangThai: 'thanh_cong' | 'that_bai';
+  loi?: string;
+};
+
+/**
+ * Kết quả sinh hàng loạt.
+ */
+export type KetQuaHangLoat = {
+  soYTuongSinh: number;
+  soBaiTaoThanhCong: number;
+  soBaiThatBai: number;
+  danhSachBai: BaiTrongHangLoat[];
+};
