@@ -16,7 +16,8 @@ export type NhiemVuMoHinh =
   | 'cham-chat-luong'
   | 'phan-loai-binh-luan'
   | 'boc-tach-ho-so'
-  | 'cham-diem-lien-quan';
+  | 'cham-diem-lien-quan'
+  | 'sinh-anh';
 
 export type LuaChonMoHinh = 'claude-cli' | 'codex-cli' | 'auto';
 

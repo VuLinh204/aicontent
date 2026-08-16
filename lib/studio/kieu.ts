@@ -116,3 +116,22 @@ export type KetQuaHangLoat = {
   soBaiThatBai: number;
   danhSachBai: BaiTrongHangLoat[];
 };
+
+/**
+ * Tham số để sinh ảnh từ nội dung bài đăng.
+ */
+export type ThamSoSinhAnh = {
+  workspaceId: string;
+  contentId: string; // ID của nội dung bài đăng
+  beMat: BeMat;
+};
+
+/**
+ * Kết quả sinh ảnh.
+ */
+export type KetQuaSinhAnh = {
+  contentId: string;
+  assetId: string; // ID của asset (ảnh) vừa tạo
+  promptAnh: string;
+  urlAnh?: string; // nếu có thể lấy URL ngay từ model
+};
