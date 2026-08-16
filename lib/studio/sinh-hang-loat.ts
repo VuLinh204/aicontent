@@ -13,8 +13,30 @@ import type {
   KetQuaHangLoat,
   BaiTrongHangLoat,
   KetQuaStudio,
-  BeMat,
 } from './kieu';
+
+async function layYTuongMoiChoHangLoat(
+  workspaceId: string,
+  beMat: string,
+  tuNgay: Date,
+  gioiHan: number,
+) {
+  const repo = createRepo(workspaceId);
+  const tatCa = await repo.yTuong.list(200);
+
+  return tatCa
+    .filter(
+      (y: { beMat?: string; daDung?: boolean; ngayTao?: Date | string | null }) =>
+        y.beMat === beMat && y.daDung === false && y.ngayTao && new Date(y.ngayTao) >= tuNgay,
+    )
+    .sort(
+      (
+        a: { ngayTao?: Date | string | null },
+        b: { ngayTao?: Date | string | null },
+      ) => new Date(b.ngayTao ?? 0).getTime() - new Date(a.ngayTao ?? 0).getTime(),
+    )
+    .slice(0, gioiHan);
+}
 
 /**
  * Cua chinh Moc 4: Sinh N y tuong, voi moi y tuong tao 1 bai dang.
@@ -45,33 +67,35 @@ export async function sinhHangLoat(
     return { ok: false, loi: 'So luong y tuong toi da 100' };
   }
 
-  const repo = createRepo(workspaceId);
+  const batDau = new Date();
+  const canhBao: string[] = [];
+  let yTuongCanXu: Array<{ id: string; beMat: string; daDung: boolean; ngayTao?: Date | string | null }> = [];
+  let soLanThu = 0;
 
-  // --- 1. Sinh N y tuong (luu vao DB) ---
-  const ketQuaYTuong = await deXuatYTuong({
-    workspaceId,
-    beMat,
-    soLuong: soLuongYTuong,
-  });
+  while (yTuongCanXu.length < soLuongYTuong && soLanThu < 3) {
+    const ketQuaYTuong = await deXuatYTuong({
+      workspaceId,
+      beMat,
+      soLuong: Math.max(soLuongYTuong - yTuongCanXu.length, 1),
+    });
 
-  if (!ketQuaYTuong.ok) {
-    return {
-      ok: false,
-      loi: `Khong sinh duoc y tuong: ${ketQuaYTuong.loi}`,
-    };
+    if (!ketQuaYTuong.ok) {
+      break;
+    }
+
+    canhBao.push(...(ketQuaYTuong.canhBao ?? []));
+    const moi = await layYTuongMoiChoHangLoat(workspaceId, beMat, batDau, soLuongYTuong * 3);
+    const daThem = new Set(yTuongCanXu.map((y) => y.id));
+    for (const y of moi) {
+      if (!daThem.has(y.id)) {
+        yTuongCanXu.push(y);
+        daThem.add(y.id);
+      }
+    }
+
+    soLanThu += 1;
+    if (moi.length === 0) break;
   }
-
-  // --- 2. Lay y tuong chu dung tu DB de co ID ---
-  // Fetch theo thu tu moi nhat trc, chi lay nhung y tuong vua sinh
-  // (co daDung=false va beMat dung)
-  const danhSachYTuongTuDB = await repo.yTuong.layTheoBeMat(beMat, soLuongYTuong);
-  const yTuongChuDung = danhSachYTuongTuDB.filter(
-    (y: { daDung: boolean }) => !y.daDung
-  );
-
-  // Neu so luong < yeu cau, chi lay nhung co san
-  const soLuongThucTe = Math.min(yTuongChuDung.length, soLuongYTuong);
-  const yTuongCanXu = yTuongChuDung.slice(0, soLuongThucTe);
 
   if (yTuongCanXu.length === 0) {
     return {
@@ -131,6 +155,6 @@ export async function sinhHangLoat(
       soBaiThatBai: soBaiThatBai,
       danhSachBai,
     },
-    canhBao: ketQuaYTuong.canhBao,
+    canhBao,
   };
 }
