@@ -29,6 +29,22 @@ export async function sinhHangLoat(
   thamSo: ThamSoSinhHangLoat,
 ): Promise<KetQuaStudio<KetQuaHangLoat>> {
   const { workspaceId, beMat, soLuongYTuong } = thamSo;
+
+  // --- Validation ---
+  if (!workspaceId) {
+    return { ok: false, loi: 'Thieu workspaceId' };
+  }
+  const BE_MAT_HOP_LE = new Set(['fanpage', 'ho_so_ca_nhan', 'tiktok', 'zalo']);
+  if (!BE_MAT_HOP_LE.has(beMat)) {
+    return { ok: false, loi: `Be mat khong hop le: ${beMat}` };
+  }
+  if (soLuongYTuong <= 0) {
+    return { ok: false, loi: 'So luong y tuong phai >= 1' };
+  }
+  if (soLuongYTuong > 100) {
+    return { ok: false, loi: 'So luong y tuong toi da 100' };
+  }
+
   const repo = createRepo(workspaceId);
 
   // --- 1. Sinh N y tuong (luu vao DB) ---
