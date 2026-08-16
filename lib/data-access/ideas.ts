@@ -24,5 +24,25 @@ export function ideasRepo(db: KetNoiDrizzle, workspaceId: string) {
         .limit(gioiHan);
       /* eslint-enable @typescript-eslint/no-explicit-any */
     },
+
+    async layTheoId(id: string): Promise<Idea | null> {
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      const [dong] = await (db as any)
+        .select()
+        .from(ideas)
+        .where(and(eq(ideas.workspaceId, workspaceId), eq(ideas.id, id)))
+        .limit(1);
+      /* eslint-enable @typescript-eslint/no-explicit-any */
+      return dong ?? null;
+    },
+
+    async danhDauDaDung(id: string): Promise<void> {
+      /* eslint-disable @typescript-eslint/no-explicit-any */
+      await (db as any)
+        .update(ideas)
+        .set({ daDung: true })
+        .where(and(eq(ideas.workspaceId, workspaceId), eq(ideas.id, id)));
+      /* eslint-enable @typescript-eslint/no-explicit-any */
+    },
   };
 }

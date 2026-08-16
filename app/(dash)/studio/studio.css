@@ -292,12 +292,13 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 9px;
+  gap: 5px;
+  padding: 4px 10px;
   border-radius: var(--r-pill);
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
+  letter-spacing: 0.01em;
 }
 
 .badge--blue {
@@ -336,6 +337,88 @@
   border: 1px dashed var(--line-strong);
 }
 
+/* Dark mode adjustments for badges */
+:root[data-theme="dark"] .badge--blue {
+  background: rgba(14, 165, 233, 0.15);
+  color: #38bdf8;
+  border-color: rgba(14, 165, 233, 0.3);
+}
+
+:root[data-theme="dark"] .badge--green {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border-color: rgba(34, 197, 94, 0.3);
+}
+
+:root[data-theme="dark"] .badge--purple {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.3);
+}
+
+:root[data-theme="dark"] .badge--cyan {
+  background: rgba(6, 182, 212, 0.15);
+  color: #22d3ee;
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+/* Common Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: var(--r-md);
+  font-family: var(--font-ui);
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background 0.15s var(--ease), transform 0.1s var(--ease), box-shadow 0.15s var(--ease), opacity 0.15s var(--ease), border-color 0.15s var(--ease);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--btn-from), var(--btn-to));
+  color: var(--btn-ink);
+  box-shadow: var(--shadow-brand);
+  border: none;
+}
+
+.btn--primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+  box-shadow: 0 4px 14px rgba(226, 121, 30, 0.4);
+}
+
+.btn--secondary {
+  background: var(--surface-2);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn--secondary:hover:not(:disabled) {
+  background: var(--surface);
+  border-color: var(--brand-500);
+  color: var(--brand-500);
+}
+
+.btn--sm {
+  padding: 6px 12px;
+  font-size: 12.5px;
+}
+
 /* Thông báo trạng thái */
 .thong-bao {
   padding: 12px 16px;
@@ -364,6 +447,18 @@
   color: #b45309;
 }
 
+:root[data-theme="dark"] .thong-bao--thanh-cong {
+  background: var(--sage-bg);
+  color: var(--sage);
+  border-color: rgba(124, 195, 150, 0.3);
+}
+
+:root[data-theme="dark"] .thong-bao--loi {
+  background: var(--clay-bg);
+  color: var(--clay);
+  border-color: rgba(239, 138, 110, 0.3);
+}
+
 /* Trạng thái trống */
 .trong-rong {
   text-align: center;
@@ -379,8 +474,218 @@
   margin: 0 0 10px;
 }
 
-.trong-rong__chu {
-  margin: 0;
+/* ---------- Mốc 2: Biên soạn bài đăng (/studio/bien-soan) ---------- */
+.trang-bien-soan {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 960px;
+  width: 100%;
+}
+
+.trang-bien-soan__header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.trang-bien-soan__quay-lai {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  transition: all 0.15s var(--ease);
+}
+
+.trang-bien-soan__quay-lai:hover {
+  color: var(--brand-500);
+  border-color: var(--brand-400);
+  background: var(--surface);
+}
+
+.trang__tieu-de {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+
+.trang__mo-ta {
   font-size: 14px;
+  color: var(--ink-2);
+}
+
+.danh-sach-y-tuong--chon .y-tuong-card__chon {
+  margin-top: 14px;
+  align-self: flex-start;
+}
+
+/* Card editor biên soạn */
+.editor-bai {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.editor-bai__card-y-tuong {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.editor-bai__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.editor-bai__chi-tiet-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.editor-bai__box-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+}
+
+.editor-bai__box-info--hook {
+  border-left: 3px solid var(--brand-500);
+}
+
+.editor-bai__box-nhan {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-3);
+}
+
+.editor-bai__box-chu {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.editor-bai__form-sinh {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 6px;
+}
+
+/* Vùng sửa bài viết */
+.editor-bai__vung-sua {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.editor-bai__sua-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.editor-bai__sua-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editor-bai__label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.editor-bai__thong-ke {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.editor-bai__textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.editor-bai__textarea {
+  width: 100%;
+  padding: 16px 18px;
+  font-family: var(--font-ui);
+  font-size: 14.5px;
+  line-height: 1.7;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+  background: var(--surface-2);
+  color: var(--ink);
+  resize: vertical;
+  min-height: 320px;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.editor-bai__textarea:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(226, 121, 30, 0.15);
+  background: var(--surface);
+}
+
+.editor-bai__hanh-dong {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+}
+
+.editor-bai__hanh-dong-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.editor-bai__da-luu {
+  font-size: 13.5px;
+  color: var(--sage);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 

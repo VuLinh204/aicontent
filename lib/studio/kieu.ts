@@ -36,3 +36,23 @@ export type YTuongDeXuat = {
 export type KetQuaStudio<T> =
   | { ok: true; data: T; canhBao: string[] }
   | { ok: false; loi: string };
+
+/**
+ * Tham số đầu vào để biên soạn một bài đăng từ ý tưởng.
+ */
+export type ThamSoBienSoan = {
+  workspaceId: string;
+  ideaId: string;
+  beMat: BeMat;
+};
+
+/**
+ * Bài đăng đã sinh ra bởi mô hình.
+ *
+ * Hợp đồng Mốc 2: truongBatBuoc = ['tieuDe', 'noiDung'] trong loi-nhac-theo-nhiem-vu.js.
+ */
+export type BaiDaSinh = {
+  tieuDe: string;
+  noiDung: string;
+  hashtag: string[];
+};

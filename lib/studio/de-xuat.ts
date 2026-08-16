@@ -383,7 +383,7 @@ export async function deXuatYTuong(
   try {
     ketQuaJob = await chayNhiemVu({
       nhiemVu: 'de-xuat-y-tuong',
-      duLieuVao,
+      duLieuVao: { ...duLieuVao, thoiDiem: Date.now() },
       moHinh: 'auto',
       khongGianLamViec: workspaceId,
     });
