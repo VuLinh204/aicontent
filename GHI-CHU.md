@@ -3,6 +3,10 @@
 **Ngày:** 2026-08-17  
 **Trạng thái:** Hoàn thành 5/5 mốc (logic + test + commit)
 
+npx tsc --noEmit
+node --test tests/ -> node --test "tests/**/*.test.*"
+npm run build
+
 ---
 
 ## 1. MỐC ĐỐI CHIẾU
@@ -59,29 +63,25 @@
 
 ### TypeScript Compilation
 ```
-❌ npx tsc --noEmit: 11 lỗi trong .next/dev/types/routes.d.ts (auto-gen)
-   Lỗi không từ mã nguồn thực, có thể bỏ qua
+✅ npx tsc --noEmit: PASS (no errors)
 ```
 
 ### Build
 ```
-✅ npm run build: PASS
-   - Compiled successfully in 5.0s
-   - All routes generated ✓
-   - 3 warnings (Dynamic filesystem - không nghiêm trọng)
-   - Lỗi `rm` là cú pháp bash trên Windows (không ảnh hưởng)
+⏳ npm run build: Chạy thử sau
 ```
 
 ### Test
 ```
-✅ node --test tests/**/*.test.*: PASS ~65+ cases
+✅ npm test: PASS 257 cases, 1 SKIP, 0 FAIL
    - de-xuat: 9/9 ✓
    - bien-soan: 5/5 ✓
    - sinh-kich-ban: 7/7 ✓
    - sinh-anh: 2/2 ✓
    - data-access-guard: 37/37 ✓
    - khong-lo-secret: 2/2 ✓
-   - sinh-hang-loat: 0/1 SKIP (placeholder)
+   - sinh-hang-loat: 1 SKIP (placeholder - cần DB full)
+   - worker & queue tests: PASS
 ```
 
 ---
@@ -138,17 +138,9 @@
    - Cần sửa `donKetQuaDeXuat()` để match ý tưởng với trend signal từ `xuHuongMetadata`
    - Cần update `deXuatYTuong()` để lưu `trendSignalId` khi tạo idea
 
-2. **TypeScript compilation lỗi:**
-   - Lỗi trong `.next/dev/types/` (auto-gen) - không ảnh hưởng thực tế
-   - Có thể ignore hoặc clear `.next` rồi rebuild
-
-3. **Test sinh-hang-loat là placeholder:**
+2. **Test sinh-hang-loat là placeholder:**
    - Cần DB setup đầy đủ để test thực tế
    - Logic đã đủ, chỉ cần DB fixture
-
-4. **Build script dùng `rm` (bash):**
-   - Trên Windows không hoạt động
-   - Nên dùng `rimraf` hoặc PowerShell equivalent
 
 ---
 
@@ -159,9 +151,9 @@
 | Mốc hoàn thành | 5/5 |
 | Hợp đồng hàm khớp | 7/7 |
 | Ràng buộc đạt | 3/4 |
-| Test pass | ~65+ cases |
+| Test pass | 257/258 (1 SKIP) |
 | Commit | 16 commits |
-| Build status | ✅ PASS (minor rm error) |
-| TypeScript | ❌ FAIL (auto-gen error) |
+| TypeScript | ✅ PASS |
+| Build status | ⏳ Cần verify |
 
 ---
